@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {readLocal,normalize,initialState,STORE_KEY} from '../src/shared-state.js';
+let stored={};globalThis.localStorage={getItem:k=>stored[k]??null,setItem:(k,v)=>stored[k]=v};
+assert.equal(normalize(readLocal()).restaurants.length,5);
+const data=normalize(readLocal());data.restaurants=[...data.restaurants,{id:'RST-1006',name:'Spice Junction',status:'Pending verification'}];
+localStorage.setItem(STORE_KEY,JSON.stringify(data));
+assert.equal(normalize(readLocal()).restaurants.filter(r=>r.status==='Active').length,4);
+data.restaurants=data.restaurants.map(r=>r.id==='RST-1006'?{...r,status:'Active'}:r);localStorage.setItem(STORE_KEY,JSON.stringify(data));
+assert.equal(normalize(readLocal()).restaurants.filter(r=>r.status==='Active').length,5);
+assert.equal(normalize(readLocal()).restaurants.find(r=>r.id==='RST-1006').name,'Spice Junction');
+console.log('Shared state onboarding checks passed');
