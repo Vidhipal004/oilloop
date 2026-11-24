@@ -23,7 +23,7 @@ app.set('trust proxy', 1);
 app.use((req, res, next) => { res.setHeader('X-Content-Type-Options', 'nosniff'); res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin'); res.setHeader('X-Frame-Options', 'SAMEORIGIN'); res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()'); next(); });
 app.use(express.json({ limit: '1mb' }));
 
-const emptyState = { restaurants: [], pickups: [], batches: [], routes: [], audit: [], bookings: [] };
+const emptyState = { restaurants: [], pickups: [], batches: [], routes: [], audit: [], bookings: [], sales: [], inquiries: [] };
 async function initDb() {
   if (!pool) return;
   await pool.query(`
@@ -139,7 +139,7 @@ app.put('/api/state', async (req, res, next) => {
     if (!pool) return res.status(503).json({ error: 'Database is not configured. Start PostgreSQL and set DATABASE_URL.' });
     const data = req.body?.data;
     if (!data || typeof data !== 'object' || Array.isArray(data)) return res.status(400).json({ error: 'Body must contain a data object.' });
-    for (const key of ['restaurants', 'pickups', 'batches', 'routes', 'audit', 'bookings']) if (data[key] !== undefined && !Array.isArray(data[key])) return res.status(400).json({ error: `${key} must be an array.` });
+    for (const key of ['restaurants', 'pickups', 'batches', 'routes', 'audit', 'bookings', 'sales', 'inquiries']) if (data[key] !== undefined && !Array.isArray(data[key])) return res.status(400).json({ error: `${key} must be an array.` });
     const clean = { ...emptyState, ...data };
     const client = await pool.connect();
     try {

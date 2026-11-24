@@ -15,6 +15,7 @@ export default defineConfig({
         dashboard: resolve(process.cwd(), 'dashboard.html'),
         portal: resolve(process.cwd(), 'portal.html'),
         restaurant: resolve(process.cwd(), 'restaurant.html'),
+        buyers: resolve(process.cwd(), 'buyers.html'),
         collector: resolve(process.cwd(), 'collector.html')
       }
     }

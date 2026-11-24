@@ -16,6 +16,8 @@ export const initialState = {
     {id:'PU-26018', restaurantId:'RST-1005', restaurant:'Green Fork Bistro', area:'Greater Kailash, Delhi', litres:105, kg:96.6, grade:'B', ffa:3.6, tpc:21, water:'Pass', visual:'Brown', temperature:37, container:'IBC tank', collector:'Aman Verma', date:iso(-3), status:'Processed', payout:4830, batchId:'OL-2026-0078', notes:'Combined batch'},
   ],
   bookings: [],
+  sales: [],
+  inquiries: [],
   routes: [
     {id:'RT-041', collector:'Ravi Kumar', vehicle:'DL 1L AB 2841', area:'South Delhi', stops:4, complete:2, status:'In progress', eta:'11:45 AM'},
     {id:'RT-042', collector:'Aman Verma', vehicle:'DL 3C CD 7018', area:'Okhla → Saket', stops:3, complete:1, status:'In progress', eta:'12:20 PM'},
